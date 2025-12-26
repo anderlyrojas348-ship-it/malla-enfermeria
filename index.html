@@ -8,27 +8,28 @@
 <style>
 body{
   font-family: Arial, sans-serif;
-  background:#ede7f6;
+  background:#f4f1fb;
+  margin:0;
+}
+
+h1{
+  background:#7b5fc6;
+  color:white;
+  padding:16px;
   margin:0;
   text-align:center;
 }
 
-h1{
-  background:#7e57c2;
-  color:white;
-  padding:16px;
-  margin:0;
-}
-
-/* ===== PROGRESO ===== */
+/* PROGRESO */
 .progreso-box{
   background:white;
   width:90%;
-  max-width:360px;
-  margin:14px auto;
+  max-width:400px;
+  margin:16px auto;
   padding:12px;
   border-radius:14px;
-  border:2px solid #7e57c2;
+  border:2px solid #7b5fc6;
+  text-align:center;
 }
 
 .barra{
@@ -42,46 +43,43 @@ h1{
   display:block;
   height:100%;
   width:0%;
-  background:#b39ddb;
+  background:#c7b7ea;
   border-radius:10px;
   transition:0.4s;
 }
 
 #textoProgreso{
-  margin-top:6px;
+  margin-top:8px;
   font-weight:bold;
-  color:#7e57c2;
+  color:#7b5fc6;
 }
 
-/* ===== ESTADÍSTICAS ===== */
+/* ESTADÍSTICAS */
 .estadisticas{
   background:white;
   width:90%;
-  max-width:360px;
+  max-width:400px;
   margin:10px auto;
   padding:10px;
   border-radius:14px;
   font-size:14px;
+  text-align:center;
 }
 
-/* ===== CICLOS CARPETA ===== */
+/* CICLOS */
 .ciclo{
   background:white;
-  margin:10px;
+  margin:12px;
   border-radius:16px;
   overflow:hidden;
 }
 
 .ciclo-header{
-  background:#d1c4e9;
+  background:#d6c9f0;
   padding:14px;
   cursor:pointer;
   font-weight:bold;
   color:#4a148c;
-}
-
-.ciclo-header::before{
-  content:"📁 ";
 }
 
 .cursos{
@@ -89,7 +87,7 @@ h1{
   padding:12px;
 }
 
-/* ===== CURSOS ===== */
+/* CURSOS */
 .curso{
   padding:10px;
   margin:6px 0;
@@ -98,31 +96,25 @@ h1{
   cursor:pointer;
 }
 
-.basico::before{ content:"📘 "; }
-.enfermeria::before{ content:"💉 "; }
-.clinico::before{ content:"🧪 "; }
-.investigacion::before{ content:"📄 "; }
-.internado::before{ content:"🏥 "; }
-.electivo::before{ content:"⭐ "; }
-
 .basico{ background:#ede7f6; }
 .enfermeria{ background:#d1c4e9; }
 .clinico{ background:#e8def8; }
-.investigacion{ background:#c5b3e6; }
-.internado{ background:#f3effb; }
-.electivo{ background:#e0d7f5; }
+.investigacion{ background:#cfc1eb; }
+.internado{ background:#f2edf9; }
+.electivo{ background:#e4dbf5; }
 
 .aprobado{
   opacity:0.6;
   text-decoration:line-through;
-  border:2px solid #7e57c2;
+  border:2px solid #7b5fc6;
 }
 
-/* ===== FOOTER ===== */
+/* PIE */
 footer{
   margin:20px;
   font-size:13px;
   color:#555;
+  text-align:center;
 }
 </style>
 
@@ -159,10 +151,10 @@ function actualizar(){
 
   document.querySelector(".barra span").style.width=porcentaje+"%";
   document.getElementById("textoProgreso").innerText=
-    `Avance: ${porcentaje}% (${aprobados}/${total})`;
+    `Avance académico: ${porcentaje}% (${aprobados} de ${total})`;
 
   document.getElementById("stats").innerText=
-    `Aprobados: ${aprobados} | Pendientes: ${total-aprobados}`;
+    `Cursos aprobados: ${aprobados} | Pendientes: ${total-aprobados}`;
 }
 
 window.onload=()=>{
@@ -174,7 +166,7 @@ window.onload=()=>{
 
 <body>
 
-<h1>Malla Curricular – Enfermería</h1>
+<h1>Malla Curricular – Enfermería UPSJB</h1>
 
 <div class="progreso-box">
   <div class="barra"><span></span></div>
@@ -183,28 +175,93 @@ window.onload=()=>{
 
 <div class="estadisticas" id="stats"></div>
 
-<!-- CICLO I -->
-<div class="ciclo">
-  <div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo I</div>
-  <div class="cursos">
-    <div class="curso basico" onclick="aprobar(this)">Fundamentos Biológicos</div>
-    <div class="curso basico" onclick="aprobar(this)">Bases de la Psicología Humana</div>
-    <div class="curso enfermeria" onclick="aprobar(this)">Historia del Cuidado Enfermero</div>
-  </div>
-</div>
+<!-- CICLOS COMPLETOS -->
 
-<!-- CICLO II -->
-<div class="ciclo">
-  <div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo II</div>
-  <div class="cursos">
-    <div class="curso basico" onclick="aprobar(this)">Fundamentos Biológicos II</div>
-    <div class="curso basico" onclick="aprobar(this)">Estructura y Función I</div>
-  </div>
-</div>
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo I</div><div class="cursos">
+<div class="curso basico" onclick="aprobar(this)">Fundamentos Biológicos</div>
+<div class="curso basico" onclick="aprobar(this)">Bases de la Psicología Humana</div>
+<div class="curso enfermeria" onclick="aprobar(this)">Historia y Epistemología del Cuidado Enfermero</div>
+<div class="curso basico" onclick="aprobar(this)">Vida Universitaria y Gestión del Conocimiento</div>
+<div class="curso basico" onclick="aprobar(this)">Lógico – Matemático</div>
+<div class="curso basico" onclick="aprobar(this)">Redacción e Interpretación de Textos</div>
+</div></div>
+
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo II</div><div class="cursos">
+<div class="curso basico" onclick="aprobar(this)">Fundamentos Biológicos II</div>
+<div class="curso basico" onclick="aprobar(this)">Estructura y Función I</div>
+<div class="curso basico" onclick="aprobar(this)">Comunicación y Medios Digitales</div>
+<div class="curso basico" onclick="aprobar(this)">Realidad Nacional</div>
+<div class="curso basico" onclick="aprobar(this)">Filosofía</div>
+<div class="curso basico" onclick="aprobar(this)">Inglés I</div>
+</div></div>
+
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo III</div><div class="cursos">
+<div class="curso enfermeria" onclick="aprobar(this)">Fundamentos del Cuidado Enfermero</div>
+<div class="curso basico" onclick="aprobar(this)">Bioquímica</div>
+<div class="curso basico" onclick="aprobar(this)">Estructura y Función II</div>
+<div class="curso basico" onclick="aprobar(this)">Interculturalidad</div>
+<div class="curso basico" onclick="aprobar(this)">Pensamiento Crítico y Emprendimiento</div>
+<div class="curso basico" onclick="aprobar(this)">Inglés II</div>
+<div class="curso clinico" onclick="aprobar(this)">Nutrición y Dietoterapia</div>
+</div></div>
+
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo IV</div><div class="cursos">
+<div class="curso enfermeria" onclick="aprobar(this)">Fundamentos del Cuidado Enfermero II</div>
+<div class="curso clinico" onclick="aprobar(this)">Salud Familiar y Comunitaria</div>
+<div class="curso clinico" onclick="aprobar(this)">Epidemiología</div>
+<div class="curso basico" onclick="aprobar(this)">Enfermería Legal</div>
+<div class="curso investigacion" onclick="aprobar(this)">Métodos Estadísticos</div>
+<div class="curso basico" onclick="aprobar(this)">Ciudadanía Global</div>
+<div class="curso electivo" onclick="aprobar(this)">Electivo I</div>
+</div></div>
+
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo V</div><div class="cursos">
+<div class="curso clinico" onclick="aprobar(this)">Cuidado Enfermero I</div>
+<div class="curso clinico" onclick="aprobar(this)">Simulación I</div>
+<div class="curso clinico" onclick="aprobar(this)">Farmacología</div>
+<div class="curso basico" onclick="aprobar(this)">Educación en Salud</div>
+<div class="curso investigacion" onclick="aprobar(this)">Metodología de la Investigación</div>
+<div class="curso electivo" onclick="aprobar(this)">Electivo II</div>
+</div></div>
+
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo VI</div><div class="cursos">
+<div class="curso clinico" onclick="aprobar(this)">Cuidado Enfermero II</div>
+<div class="curso clinico" onclick="aprobar(this)">Simulación II</div>
+<div class="curso basico" onclick="aprobar(this)">Alfabetización en Salud</div>
+<div class="curso investigacion" onclick="aprobar(this)">Redacción Científica I</div>
+<div class="curso electivo" onclick="aprobar(this)">Electivo III</div>
+</div></div>
+
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo VII</div><div class="cursos">
+<div class="curso clinico" onclick="aprobar(this)">Cuidado Enfermero III</div>
+<div class="curso clinico" onclick="aprobar(this)">Simulación III</div>
+<div class="curso basico" onclick="aprobar(this)">Gestión y Emprendimiento</div>
+<div class="curso investigacion" onclick="aprobar(this)">Redacción Científica II</div>
+<div class="curso electivo" onclick="aprobar(this)">Electivo IV</div>
+</div></div>
+
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo VIII</div><div class="cursos">
+<div class="curso clinico" onclick="aprobar(this)">Cuidado Enfermero IV</div>
+<div class="curso clinico" onclick="aprobar(this)">Emergencias y Urgencias</div>
+<div class="curso investigacion" onclick="aprobar(this)">Seminario Integrador</div>
+<div class="curso basico" onclick="aprobar(this)">Gestión de Servicios de Enfermería</div>
+<div class="curso basico" onclick="aprobar(this)">Ética Profesional</div>
+</div></div>
+
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo IX</div><div class="cursos">
+<div class="curso internado" onclick="aprobar(this)">Internado Comunitario I</div>
+<div class="curso internado" onclick="aprobar(this)">Internado Comunitario II</div>
+<div class="curso investigacion" onclick="aprobar(this)">Proyecto de Tesis</div>
+</div></div>
+
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo X</div><div class="cursos">
+<div class="curso internado" onclick="aprobar(this)">Internado Clínico I</div>
+<div class="curso internado" onclick="aprobar(this)">Internado Clínico II</div>
+<div class="curso investigacion" onclick="aprobar(this)">Trabajo de Investigación</div>
+</div></div>
 
 <footer>
-<p>✔ Ciclos desplegables tipo carpeta</p>
-<p> Progreso guardado automáticamente</p>
+<p>Malla curricular académica – Enfermería UPSJB</p>
 </footer>
 
 </body>
