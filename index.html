@@ -6,263 +6,264 @@
 <title>Malla Curricular – Enfermería UPSJB</title>
 
 <style>
+:root{
+  --lila:#b497d6;
+  --lila-claro:#f4effa;
+  --blanco:#ffffff;
+  --texto:#3a3a3a;
+}
+
 body{
   font-family: Arial, sans-serif;
-  background:#f4f1fb;
+  background:var(--lila-claro);
   margin:0;
+  color:var(--texto);
 }
 
-h1{
-  background:#7b5fc6;
+header{
+  background:var(--lila);
   color:white;
-  padding:16px;
-  margin:0;
+  padding:15px;
   text-align:center;
 }
 
-/* PROGRESO */
-.progreso-box{
+section{
+  max-width:1100px;
+  margin:auto;
+  padding:15px;
+}
+
+/* estadísticas */
+.stats{
   background:white;
-  width:90%;
-  max-width:400px;
-  margin:16px auto;
+  border-radius:12px;
   padding:12px;
-  border-radius:14px;
-  border:2px solid #7b5fc6;
-  text-align:center;
+  margin-bottom:15px;
+  box-shadow:0 3px 8px rgba(0,0,0,.1);
 }
 
 .barra{
-  width:100%;
-  height:14px;
-  background:#ddd;
+  height:12px;
+  background:#e0d8ee;
   border-radius:10px;
+  overflow:hidden;
+  margin-top:8px;
 }
-
 .barra span{
   display:block;
   height:100%;
+  background:var(--lila);
   width:0%;
-  background:#c7b7ea;
-  border-radius:10px;
-  transition:0.4s;
 }
 
-#textoProgreso{
-  margin-top:8px;
-  font-weight:bold;
-  color:#7b5fc6;
-}
-
-/* ESTADÍSTICAS */
-.estadisticas{
-  background:white;
-  width:90%;
-  max-width:400px;
-  margin:10px auto;
-  padding:10px;
-  border-radius:14px;
-  font-size:14px;
-  text-align:center;
-}
-
-/* CICLOS */
+/* ciclos */
 .ciclo{
   background:white;
-  margin:12px;
-  border-radius:16px;
-  overflow:hidden;
+  border-radius:12px;
+  margin-bottom:12px;
+  box-shadow:0 3px 8px rgba(0,0,0,.1);
 }
 
-.ciclo-header{
-  background:#d6c9f0;
-  padding:14px;
+.ciclo h2{
+  margin:0;
+  padding:12px;
+  background:#efe8f8;
   cursor:pointer;
-  font-weight:bold;
-  color:#4a148c;
+  font-size:16px;
 }
 
 .cursos{
   display:none;
-  padding:12px;
-}
-
-/* CURSOS */
-.curso{
   padding:10px;
-  margin:6px 0;
-  border-radius:10px;
-  font-size:14px;
+}
+
+.curso{
+  padding:8px;
+  margin-bottom:6px;
+  border-radius:8px;
+  background:#f7f3fc;
   cursor:pointer;
+  display:flex;
+  justify-content:space-between;
 }
 
-.basico{ background:#ede7f6; }
-.enfermeria{ background:#d1c4e9; }
-.clinico{ background:#e8def8; }
-.investigacion{ background:#cfc1eb; }
-.internado{ background:#f2edf9; }
-.electivo{ background:#e4dbf5; }
-
-.aprobado{
-  opacity:0.6;
+.curso.aprobado{
+  opacity:.55;
   text-decoration:line-through;
-  border:2px solid #7b5fc6;
-}
-
-/* PIE */
-footer{
-  margin:20px;
-  font-size:13px;
-  color:#555;
-  text-align:center;
+  border-left:5px solid var(--lila);
 }
 </style>
-
-<script>
-function toggleCiclo(header){
-  const cursos = header.nextElementSibling;
-  cursos.style.display = cursos.style.display === "block" ? "none" : "block";
-}
-
-function aprobar(el){
-  el.classList.toggle("aprobado");
-  guardar();
-  actualizar();
-}
-
-function guardar(){
-  let cursos=document.querySelectorAll(".curso");
-  let estado=[];
-  cursos.forEach(c=>estado.push(c.classList.contains("aprobado")));
-  localStorage.setItem("estadoCursos",JSON.stringify(estado));
-}
-
-function cargar(){
-  let estado=JSON.parse(localStorage.getItem("estadoCursos"));
-  if(!estado) return;
-  let cursos=document.querySelectorAll(".curso");
-  cursos.forEach((c,i)=>{ if(estado[i]) c.classList.add("aprobado"); });
-}
-
-function actualizar(){
-  let total=document.querySelectorAll(".curso").length;
-  let aprobados=document.querySelectorAll(".curso.aprobado").length;
-  let porcentaje=Math.round((aprobados/total)*100);
-
-  document.querySelector(".barra span").style.width=porcentaje+"%";
-  document.getElementById("textoProgreso").innerText=
-    `Avance académico: ${porcentaje}% (${aprobados} de ${total})`;
-
-  document.getElementById("stats").innerText=
-    `Cursos aprobados: ${aprobados} | Pendientes: ${total-aprobados}`;
-}
-
-window.onload=()=>{
-  cargar();
-  actualizar();
-};
-</script>
 </head>
 
 <body>
 
-<h1>Malla Curricular – Enfermería UPSJB</h1>
+<header>
+<h1>Malla Curricular – Enfermería</h1>
+<p>Universidad Privada San Juan Bautista</p>
+</header>
 
-<div class="progreso-box">
-  <div class="barra"><span></span></div>
-  <div id="textoProgreso"></div>
+<section>
+
+<div class="stats">
+<div id="resumen"></div>
+<div class="barra"><span id="barra"></span></div>
 </div>
 
-<div class="estadisticas" id="stats"></div>
+<!-- CICLOS -->
+<div id="contenedor"></div>
 
-<!-- CICLOS COMPLETOS -->
+</section>
 
-<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo I</div><div class="cursos">
-<div class="curso basico" onclick="aprobar(this)">Fundamentos Biológicos</div>
-<div class="curso basico" onclick="aprobar(this)">Bases de la Psicología Humana</div>
-<div class="curso enfermeria" onclick="aprobar(this)">Historia y Epistemología del Cuidado Enfermero</div>
-<div class="curso basico" onclick="aprobar(this)">Vida Universitaria y Gestión del Conocimiento</div>
-<div class="curso basico" onclick="aprobar(this)">Lógico – Matemático</div>
-<div class="curso basico" onclick="aprobar(this)">Redacción e Interpretación de Textos</div>
-</div></div>
+<script>
+const ciclos = [
+{nombre:"Ciclo 01", cursos:[
+["HISTORIA Y FILOSOFÍA DEL CUIDADO",3],
+["ANATOMÍA",6],
+["BASES DE LA BIOQUÍMICA HUMANA",2],
+["FUNDAMENTOS DE ENFERMERÍA",3],
+["VIDA UNIVERSITARIA Y DESARROLLO PERSONAL",2],
+["LÓGICO-MATEMÁTICA",3],
+["COMUNICACIÓN E INTERPRETACIÓN DE TEXTOS",3]
+]},
+{nombre:"Ciclo 02", cursos:[
+["ESTRUCTURA Y FUNCIÓN I",3],
+["FISIOLOGÍA",3],
+["MICROBIOLOGÍA Y PARASITOLOGÍA",3],
+["PSICOLOGÍA",3],
+["REALIDAD NACIONAL",3],
+["MEDIOS DIGITALES",3]
+]},
+{nombre:"Ciclo 03", cursos:[
+["BIOESTADÍSTICA",3],
+["CUIDADO HUMANO DEL CUIDADO ENFERMERO I",3],
+["NUTRICIÓN Y DIETOTERAPIA",3],
+["ESTRUCTURA Y FUNCIÓN II",3],
+["BIOQUÍMICA",2],
+["INTERCULTURALIDAD",3],
+["PENSAMIENTO CRÍTICO, CREATIVO Y EMPRENDIMIENTO",2]
+]},
+{nombre:"Ciclo 04", cursos:[
+["FARMACOLOGÍA",3],
+["PATOLOGÍA",3],
+["SALUD PÚBLICA",3],
+["CUIDADO HUMANO DEL CUIDADO ENFERMERO II",10],
+["INVESTIGACIÓN",3],
+["ELECTIVO I",2],
+["APROBADO / NO APROBADO",0]
+]},
+{nombre:"Ciclo 05", cursos:[
+["CUIDADO INTEGRAL DE LA MUJER Y EL RECIÉN NACIDO",10],
+["CUIDADO INTEGRAL DE LA NIÑEZ Y ADOLESCENCIA",10],
+["EPIDEMIOLOGÍA",2],
+["ELECTIVO II",2]
+]},
+{nombre:"Ciclo 06", cursos:[
+["CUIDADO ENFERMERO II (PROCEDIMIENTOS INVASIVOS)",10],
+["RECURSOS PARA LA BÚSQUEDA DE EVIDENCIA",2],
+["REDACCIÓN Y PUBLICACIÓN DE ARTÍCULOS I",2]
+]},
+{nombre:"Ciclo 07", cursos:[
+["CUIDADO ENFERMERO III (CUIDADOS INTENSIVOS AVANZADOS)",10],
+["ÉTICA Y DEONTOLOGÍA",2],
+["GESTIÓN Y EMPRENDIMIENTO",4],
+["REDACCIÓN Y PUBLICACIÓN DE ARTÍCULOS II",2]
+]},
+{nombre:"Ciclo 08", cursos:[
+["BIOÉTICA",2],
+["GESTIÓN DE LOS SERVICIOS DE ENFERMERÍA",10],
+["EMERGENCIAS Y DESASTRES EN ENFERMERÍA",2],
+["SEMINARIO INTEGRADOR",2],
+["PROFESIONALISMO",3]
+]},
+{nombre:"Ciclo 09", cursos:[
+["TALLER GUÍA DE PRÁCTICA CLÍNICA EN CRISIS",2],
+["PRIMERA ROTACIÓN DE INTERNADO COMUNITARIO I",10],
+["SEGUNDA ROTACIÓN DE INTERNADO COMUNITARIO I",10]
+]},
+{nombre:"Ciclo 10", cursos:[
+["TRABAJO DE INVESTIGACIÓN",2],
+["TERCERA ROTACIÓN DE INTERNADO CLÍNICO I",10],
+["INTERNADO CLÍNICO II",10]
+]},
+{nombre:"Ciclo 99 (Electivos)", cursos:[
+["TALLER DE DESARROLLO DE LA INTELIGENCIA EMOCIONAL",2],
+["PRIMEROS AUXILIOS Y RESCATISTAS",2],
+["NEUROCIENCIA DEL DOLOR",2],
+["ONE HEALTH",2],
+["MANEJO INTEGRAL EN EPIDEMIAS",2],
+["SALUD BASADA EN EVIDENCIAS",2],
+["GRAND ROUND GENERAL",0],
+["TERAPÉUTICA INTEGRAL COMPLEMENTARIA",2],
+["PSICOLOGÍA DEL SUICIDIO",2],
+["PSICOLOGÍA Y ADICCIONES",2]
+]}
+];
 
-<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo II</div><div class="cursos">
-<div class="curso basico" onclick="aprobar(this)">Fundamentos Biológicos II</div>
-<div class="curso basico" onclick="aprobar(this)">Estructura y Función I</div>
-<div class="curso basico" onclick="aprobar(this)">Comunicación y Medios Digitales</div>
-<div class="curso basico" onclick="aprobar(this)">Realidad Nacional</div>
-<div class="curso basico" onclick="aprobar(this)">Filosofía</div>
-<div class="curso basico" onclick="aprobar(this)">Inglés I</div>
-</div></div>
+const cont = document.getElementById("contenedor");
 
-<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo III</div><div class="cursos">
-<div class="curso enfermeria" onclick="aprobar(this)">Fundamentos del Cuidado Enfermero</div>
-<div class="curso basico" onclick="aprobar(this)">Bioquímica</div>
-<div class="curso basico" onclick="aprobar(this)">Estructura y Función II</div>
-<div class="curso basico" onclick="aprobar(this)">Interculturalidad</div>
-<div class="curso basico" onclick="aprobar(this)">Pensamiento Crítico y Emprendimiento</div>
-<div class="curso basico" onclick="aprobar(this)">Inglés II</div>
-<div class="curso clinico" onclick="aprobar(this)">Nutrición y Dietoterapia</div>
-</div></div>
+let index = 0;
+ciclos.forEach(c=>{
+  let div = document.createElement("div");
+  div.className="ciclo";
+  let h = document.createElement("h2");
+  h.textContent = c.nombre;
+  let cursos = document.createElement("div");
+  cursos.className="cursos";
 
-<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo IV</div><div class="cursos">
-<div class="curso enfermeria" onclick="aprobar(this)">Fundamentos del Cuidado Enfermero II</div>
-<div class="curso clinico" onclick="aprobar(this)">Salud Familiar y Comunitaria</div>
-<div class="curso clinico" onclick="aprobar(this)">Epidemiología</div>
-<div class="curso basico" onclick="aprobar(this)">Enfermería Legal</div>
-<div class="curso investigacion" onclick="aprobar(this)">Métodos Estadísticos</div>
-<div class="curso basico" onclick="aprobar(this)">Ciudadanía Global</div>
-<div class="curso electivo" onclick="aprobar(this)">Electivo I</div>
-</div></div>
+  h.onclick=()=> cursos.style.display = cursos.style.display==="block"?"none":"block";
 
-<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo V</div><div class="cursos">
-<div class="curso clinico" onclick="aprobar(this)">Cuidado Enfermero I</div>
-<div class="curso clinico" onclick="aprobar(this)">Simulación I</div>
-<div class="curso clinico" onclick="aprobar(this)">Farmacología</div>
-<div class="curso basico" onclick="aprobar(this)">Educación en Salud</div>
-<div class="curso investigacion" onclick="aprobar(this)">Metodología de la Investigación</div>
-<div class="curso electivo" onclick="aprobar(this)">Electivo II</div>
-</div></div>
+  c.cursos.forEach(cur=>{
+    let d = document.createElement("div");
+    d.className="curso";
+    d.dataset.creditos = cur[1];
+    d.dataset.id = index;
+    d.innerHTML = `<span>${cur[0]}</span><span>${cur[1]} cr</span>`;
+    d.onclick=()=>{
+      d.classList.toggle("aprobado");
+      guardar();
+      stats();
+    };
+    cursos.appendChild(d);
+    index++;
+  });
 
-<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo VI</div><div class="cursos">
-<div class="curso clinico" onclick="aprobar(this)">Cuidado Enfermero II</div>
-<div class="curso clinico" onclick="aprobar(this)">Simulación II</div>
-<div class="curso basico" onclick="aprobar(this)">Alfabetización en Salud</div>
-<div class="curso investigacion" onclick="aprobar(this)">Redacción Científica I</div>
-<div class="curso electivo" onclick="aprobar(this)">Electivo III</div>
-</div></div>
+  div.appendChild(h);
+  div.appendChild(cursos);
+  cont.appendChild(div);
+});
 
-<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo VII</div><div class="cursos">
-<div class="curso clinico" onclick="aprobar(this)">Cuidado Enfermero III</div>
-<div class="curso clinico" onclick="aprobar(this)">Simulación III</div>
-<div class="curso basico" onclick="aprobar(this)">Gestión y Emprendimiento</div>
-<div class="curso investigacion" onclick="aprobar(this)">Redacción Científica II</div>
-<div class="curso electivo" onclick="aprobar(this)">Electivo IV</div>
-</div></div>
+function guardar(){
+  let data=[];
+  document.querySelectorAll(".curso").forEach(c=>{
+    data.push(c.classList.contains("aprobado"));
+  });
+  localStorage.setItem("estadoUPSJB",JSON.stringify(data));
+}
 
-<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo VIII</div><div class="cursos">
-<div class="curso clinico" onclick="aprobar(this)">Cuidado Enfermero IV</div>
-<div class="curso clinico" onclick="aprobar(this)">Emergencias y Urgencias</div>
-<div class="curso investigacion" onclick="aprobar(this)">Seminario Integrador</div>
-<div class="curso basico" onclick="aprobar(this)">Gestión de Servicios de Enfermería</div>
-<div class="curso basico" onclick="aprobar(this)">Ética Profesional</div>
-</div></div>
+function cargar(){
+  let data = JSON.parse(localStorage.getItem("estadoUPSJB"));
+  if(!data) return;
+  document.querySelectorAll(".curso").forEach((c,i)=>{
+    if(data[i]) c.classList.add("aprobado");
+  });
+}
 
-<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo IX</div><div class="cursos">
-<div class="curso internado" onclick="aprobar(this)">Internado Comunitario I</div>
-<div class="curso internado" onclick="aprobar(this)">Internado Comunitario II</div>
-<div class="curso investigacion" onclick="aprobar(this)">Proyecto de Tesis</div>
-</div></div>
+function stats(){
+  let total=0, aprob=0;
+  document.querySelectorAll(".curso").forEach(c=>{
+    let cr = Number(c.dataset.creditos);
+    total+=cr;
+    if(c.classList.contains("aprobado")) aprob+=cr;
+  });
+  let p = total?Math.round((aprob/total)*100):0;
+  document.getElementById("resumen").innerText =
+    `Créditos aprobados: ${aprob} / ${total} — Avance: ${p}%`;
+  document.getElementById("barra").style.width = p+"%";
+}
 
-<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo X</div><div class="cursos">
-<div class="curso internado" onclick="aprobar(this)">Internado Clínico I</div>
-<div class="curso internado" onclick="aprobar(this)">Internado Clínico II</div>
-<div class="curso investigacion" onclick="aprobar(this)">Trabajo de Investigación</div>
-</div></div>
-
-<footer>
-<p>Malla curricular académica – Enfermería UPSJB</p>
-</footer>
+cargar();
+stats();
+</script>
 
 </body>
 </html>
