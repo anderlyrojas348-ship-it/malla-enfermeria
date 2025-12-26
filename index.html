@@ -1,52 +1,154 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Malla Curricular - Enfermería</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f7f6;
-      text-align: center;
-    }
-    h1 {
-      color: #2b7a78;
-    }
-    .malla {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-      padding: 20px;
-    }
-    .ciclo {
-      background: #3bbfad;
-      color: white;
-      padding: 20px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-    .ciclo:hover {
-      background: #2b9c8a;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>Malla Curricular – Enfermería UPSJB</title>
+
+<style>
+body{
+  font-family: Arial, sans-serif;
+  background:#f4f6f8;
+  text-align:center;
+}
+h1{
+  color:#1f6f8b;
+}
+p{
+  color:#333;
+}
+.malla{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:20px;
+  padding:20px;
+}
+.ciclo{
+  background:#1f6f8b;
+  color:white;
+  padding:15px;
+  border-radius:12px;
+  text-align:left;
+}
+.ciclo h2{
+  text-align:center;
+  margin-bottom:10px;
+}
+.curso{
+  font-size:14px;
+  margin:4px 0;
+}
+footer{
+  margin:20px 0;
+  font-size:14px;
+}
+</style>
 </head>
+
 <body>
 
 <h1>Malla Curricular – Enfermería</h1>
+<p>Universidad Privada San Juan Bautista</p>
 
 <div class="malla">
-  <div class="ciclo" onclick="alert('Ciclo 01')">Ciclo 01</div>
-  <div class="ciclo" onclick="alert('Ciclo 02')">Ciclo 02</div>
-  <div class="ciclo" onclick="alert('Ciclo 03')">Ciclo 03</div>
-  <div class="ciclo" onclick="alert('Ciclo 04')">Ciclo 04</div>
-  <div class="ciclo" onclick="alert('Ciclo 05')">Ciclo 05</div>
-  <div class="ciclo" onclick="alert('Ciclo 06')">Ciclo 06</div>
-  <div class="ciclo" onclick="alert('Ciclo 07')">Ciclo 07</div>
-  <div class="ciclo" onclick="alert('Ciclo 08')">Ciclo 08</div>
-  <div class="ciclo" onclick="alert('Ciclo 09')">Ciclo 09</div>
-  <div class="ciclo" onclick="alert('Ciclo 10')">Ciclo 10</div>
+
+<div class="ciclo">
+<h2>Ciclo I</h2>
+<div class="curso">Fundamentos Biológicos</div>
+<div class="curso">Bases de la Psicología Humana</div>
+<div class="curso">Historia y Epistemología del Cuidado Enfermero</div>
+<div class="curso">Vida Universitaria y Gestión del Conocimiento</div>
+<div class="curso">Lógico - Matemático</div>
+<div class="curso">Redacción e Interpretación de Textos</div>
 </div>
+
+<div class="ciclo">
+<h2>Ciclo II</h2>
+<div class="curso">Fundamentos Biológicos II</div>
+<div class="curso">Estructura y Función I</div>
+<div class="curso">Comunicación y Medios Digitales</div>
+<div class="curso">Realidad Nacional</div>
+<div class="curso">Filosofía</div>
+<div class="curso">Inglés I</div>
+</div>
+
+<div class="ciclo">
+<h2>Ciclo III</h2>
+<div class="curso">Fundamentos Básicos del Cuidado Enfermero</div>
+<div class="curso">Bioquímica</div>
+<div class="curso">Estructura y Función II</div>
+<div class="curso">Interculturalidad</div>
+<div class="curso">Pensamiento Crítico, Creativo y Emprendimiento</div>
+<div class="curso">Inglés II</div>
+<div class="curso">Nutrición y Dietoterapia</div>
+</div>
+
+<div class="ciclo">
+<h2>Ciclo IV</h2>
+<div class="curso">Integrador – Fundamentos Básicos del Cuidado Enfermero II</div>
+<div class="curso">Salud Familiar y Comunitaria</div>
+<div class="curso">Epidemiología</div>
+<div class="curso">Enfermería Legal y Legislación en Salud</div>
+<div class="curso">Sistematización y Métodos Estadísticos</div>
+<div class="curso">Ciudadanía Global y Desarrollo Sostenible</div>
+<div class="curso">Electivo 1</div>
+</div>
+
+<div class="ciclo">
+<h2>Ciclo V</h2>
+<div class="curso">Cuidado Enfermero I</div>
+<div class="curso">Simulación I (Reanimación Cardiopulmonar Básico)</div>
+<div class="curso">Farmacología Aplicada a la Enfermería</div>
+<div class="curso">Tecnologías de Empoderamiento Participativo en la Educación en Salud</div>
+<div class="curso">Metodología de la Investigación</div>
+<div class="curso">Electivo 2</div>
+</div>
+
+<div class="ciclo">
+<h2>Ciclo VI</h2>
+<div class="curso">Cuidado Enfermero II</div>
+<div class="curso">Simulación II (Procedimientos Invasivos Básicos)</div>
+<div class="curso">Recursos para la Alfabetización en Salud</div>
+<div class="curso">Redacción y Publicación de Artículo I</div>
+<div class="curso">Electivo 3</div>
+</div>
+
+<div class="ciclo">
+<h2>Ciclo VII</h2>
+<div class="curso">Cuidado Enfermero III</div>
+<div class="curso">Simulación III (Procedimientos Invasivos Avanzados)</div>
+<div class="curso">Gestión Estratégica y Emprendimiento</div>
+<div class="curso">Redacción y Publicación de Artículo II</div>
+<div class="curso">Electivo 4</div>
+</div>
+
+<div class="ciclo">
+<h2>Ciclo VIII</h2>
+<div class="curso">Cuidado Enfermero IV</div>
+<div class="curso">Emergencias y Urgencias en Enfermería</div>
+<div class="curso">Seminario Integrador II</div>
+<div class="curso">Gestión de los Servicios de Enfermería</div>
+<div class="curso">Ética y Profesionalismo</div>
+</div>
+
+<div class="ciclo">
+<h2>Ciclo IX</h2>
+<div class="curso">Primera Rotación de Internado Comunitario</div>
+<div class="curso">Segunda Rotación de Internado Comunitario II</div>
+<div class="curso">Taller Guía de Proyecto de Tesis</div>
+</div>
+
+<div class="ciclo">
+<h2>Ciclo X</h2>
+<div class="curso">Tercera Rotación de Internado Clínico</div>
+<div class="curso">Cuarta Rotación de Internado Clínico II</div>
+<div class="curso">Trabajo de Investigación</div>
+</div>
+
+</div>
+
+<footer>
+<p>Malla Curricular Oficial – Carrera de Enfermería (UPSJB)</p>
+</footer>
 
 </body>
 </html>
