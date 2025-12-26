@@ -10,35 +10,47 @@ body{
   background:#f4f6f8;
   text-align:center;
 }
-h1{
-  color:#1f6f8b;
-}
-p{
-  color:#333;
-}
+h1{ color:#0b5ed7; }
+p{ color:#333; }
+
 .malla{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
   gap:20px;
   padding:20px;
 }
+
 .ciclo{
-  background:#1f6f8b;
-  color:white;
+  background:#ffffff;
+  border:2px solid #0b5ed7;
+  border-radius:14px;
   padding:15px;
-  border-radius:12px;
   text-align:left;
 }
+
 .ciclo h2{
   text-align:center;
-  margin-bottom:10px;
+  color:#0b5ed7;
 }
+
+/* estilos generales de cursos */
 .curso{
-  font-size:14px;
+  padding:5px 8px;
   margin:4px 0;
+  border-radius:6px;
+  font-size:14px;
 }
+
+/* colores por tipo de curso */
+.basico{ background:#e7f1ff; color:#084298; }
+.enfermeria{ background:#e6f4ea; color:#146c43; }
+.clinico{ background:#fff3cd; color:#664d03; }
+.investigacion{ background:#f3e8ff; color:#5a189a; }
+.internado{ background:#e9ecef; color:#343a40; }
+.electivo{ background:#fde2e4; color:#842029; }
+
 footer{
-  margin:20px 0;
+  margin:20px;
   font-size:14px;
 }
 </style>
@@ -51,103 +63,113 @@ footer{
 
 <div class="malla">
 
+<!-- CICLO I -->
 <div class="ciclo">
 <h2>Ciclo I</h2>
-<div class="curso">Fundamentos Biológicos</div>
-<div class="curso">Bases de la Psicología Humana</div>
-<div class="curso">Historia y Epistemología del Cuidado Enfermero</div>
-<div class="curso">Vida Universitaria y Gestión del Conocimiento</div>
-<div class="curso">Lógico - Matemático</div>
-<div class="curso">Redacción e Interpretación de Textos</div>
+<div class="curso basico">Fundamentos Biológicos</div>
+<div class="curso basico">Bases de la Psicología Humana</div>
+<div class="curso enfermeria">Historia y Epistemología del Cuidado Enfermero</div>
+<div class="curso basico">Vida Universitaria y Gestión del Conocimiento</div>
+<div class="curso basico">Lógico - Matemático</div>
+<div class="curso basico">Redacción e Interpretación de Textos</div>
 </div>
 
+<!-- CICLO II -->
 <div class="ciclo">
 <h2>Ciclo II</h2>
-<div class="curso">Fundamentos Biológicos II</div>
-<div class="curso">Estructura y Función I</div>
-<div class="curso">Comunicación y Medios Digitales</div>
-<div class="curso">Realidad Nacional</div>
-<div class="curso">Filosofía</div>
-<div class="curso">Inglés I</div>
+<div class="curso basico">Fundamentos Biológicos II</div>
+<div class="curso basico">Estructura y Función I</div>
+<div class="curso basico">Comunicación y Medios Digitales</div>
+<div class="curso basico">Realidad Nacional</div>
+<div class="curso basico">Filosofía</div>
+<div class="curso basico">Inglés I</div>
 </div>
 
+<!-- CICLO III -->
 <div class="ciclo">
 <h2>Ciclo III</h2>
-<div class="curso">Fundamentos Básicos del Cuidado Enfermero</div>
-<div class="curso">Bioquímica</div>
-<div class="curso">Estructura y Función II</div>
-<div class="curso">Interculturalidad</div>
-<div class="curso">Pensamiento Crítico, Creativo y Emprendimiento</div>
-<div class="curso">Inglés II</div>
-<div class="curso">Nutrición y Dietoterapia</div>
+<div class="curso enfermeria">Fundamentos Básicos del Cuidado Enfermero</div>
+<div class="curso basico">Bioquímica</div>
+<div class="curso basico">Estructura y Función II</div>
+<div class="curso basico">Interculturalidad</div>
+<div class="curso basico">Pensamiento Crítico, Creativo y Emprendimiento</div>
+<div class="curso basico">Inglés II</div>
+<div class="curso clinico">Nutrición y Dietoterapia</div>
 </div>
 
+<!-- CICLO IV -->
 <div class="ciclo">
 <h2>Ciclo IV</h2>
-<div class="curso">Integrador – Fundamentos Básicos del Cuidado Enfermero II</div>
-<div class="curso">Salud Familiar y Comunitaria</div>
-<div class="curso">Epidemiología</div>
-<div class="curso">Enfermería Legal y Legislación en Salud</div>
-<div class="curso">Sistematización y Métodos Estadísticos</div>
-<div class="curso">Ciudadanía Global y Desarrollo Sostenible</div>
-<div class="curso">Electivo 1</div>
+<div class="curso enfermeria">Integrador – Fundamentos Básicos del Cuidado Enfermero II</div>
+<div class="curso enfermeria">Salud Familiar y Comunitaria</div>
+<div class="curso basico">Epidemiología</div>
+<div class="curso enfermeria">Enfermería Legal y Legislación en Salud</div>
+<div class="curso investigacion">Sistematización y Métodos Estadísticos</div>
+<div class="curso basico">Ciudadanía Global y Desarrollo Sostenible</div>
+<div class="curso electivo">Electivo 1</div>
 </div>
 
+<!-- CICLO V -->
 <div class="ciclo">
 <h2>Ciclo V</h2>
-<div class="curso">Cuidado Enfermero I</div>
-<div class="curso">Simulación I (Reanimación Cardiopulmonar Básico)</div>
-<div class="curso">Farmacología Aplicada a la Enfermería</div>
-<div class="curso">Tecnologías de Empoderamiento Participativo en la Educación en Salud</div>
-<div class="curso">Metodología de la Investigación</div>
-<div class="curso">Electivo 2</div>
+<div class="curso enfermeria">Cuidado Enfermero I</div>
+<div class="curso clinico">Simulación I (RCP Básico)</div>
+<div class="curso clinico">Farmacología Aplicada a la Enfermería</div>
+<div class="curso enfermeria">Tecnologías de Empoderamiento Participativo en la Educación en Salud</div>
+<div class="curso investigacion">Metodología de la Investigación</div>
+<div class="curso electivo">Electivo 2</div>
 </div>
 
+<!-- CICLO VI -->
 <div class="ciclo">
 <h2>Ciclo VI</h2>
-<div class="curso">Cuidado Enfermero II</div>
-<div class="curso">Simulación II (Procedimientos Invasivos Básicos)</div>
-<div class="curso">Recursos para la Alfabetización en Salud</div>
-<div class="curso">Redacción y Publicación de Artículo I</div>
-<div class="curso">Electivo 3</div>
+<div class="curso enfermeria">Cuidado Enfermero II</div>
+<div class="curso clinico">Simulación II (Procedimientos Invasivos Básicos)</div>
+<div class="curso basico">Recursos para la Alfabetización en Salud</div>
+<div class="curso investigacion">Redacción y Publicación de Artículo I</div>
+<div class="curso electivo">Electivo 3</div>
 </div>
 
+<!-- CICLO VII -->
 <div class="ciclo">
 <h2>Ciclo VII</h2>
-<div class="curso">Cuidado Enfermero III</div>
-<div class="curso">Simulación III (Procedimientos Invasivos Avanzados)</div>
-<div class="curso">Gestión Estratégica y Emprendimiento</div>
-<div class="curso">Redacción y Publicación de Artículo II</div>
-<div class="curso">Electivo 4</div>
+<div class="curso enfermeria">Cuidado Enfermero III</div>
+<div class="curso clinico">Simulación III (Procedimientos Invasivos Avanzados)</div>
+<div class="curso investigacion">Gestión Estratégica y Emprendimiento</div>
+<div class="curso investigacion">Redacción y Publicación de Artículo II</div>
+<div class="curso electivo">Electivo 4</div>
 </div>
 
+<!-- CICLO VIII -->
 <div class="ciclo">
 <h2>Ciclo VIII</h2>
-<div class="curso">Cuidado Enfermero IV</div>
-<div class="curso">Emergencias y Urgencias en Enfermería</div>
-<div class="curso">Seminario Integrador II</div>
-<div class="curso">Gestión de los Servicios de Enfermería</div>
-<div class="curso">Ética y Profesionalismo</div>
+<div class="curso enfermeria">Cuidado Enfermero IV</div>
+<div class="curso clinico">Emergencias y Urgencias en Enfermería</div>
+<div class="curso enfermeria">Seminario Integrador II</div>
+<div class="curso investigacion">Gestión de los Servicios de Enfermería</div>
+<div class="curso enfermeria">Ética y Profesionalismo</div>
 </div>
 
+<!-- CICLO IX -->
 <div class="ciclo">
 <h2>Ciclo IX</h2>
-<div class="curso">Primera Rotación de Internado Comunitario</div>
-<div class="curso">Segunda Rotación de Internado Comunitario II</div>
-<div class="curso">Taller Guía de Proyecto de Tesis</div>
+<div class="curso internado">Primera Rotación de Internado Comunitario</div>
+<div class="curso internado">Segunda Rotación de Internado Comunitario II</div>
+<div class="curso investigacion">Taller Guía de Proyecto de Tesis</div>
 </div>
 
+<!-- CICLO X -->
 <div class="ciclo">
 <h2>Ciclo X</h2>
-<div class="curso">Tercera Rotación de Internado Clínico</div>
-<div class="curso">Cuarta Rotación de Internado Clínico II</div>
-<div class="curso">Trabajo de Investigación</div>
+<div class="curso internado">Tercera Rotación de Internado Clínico</div>
+<div class="curso internado">Cuarta Rotación de Internado Clínico II</div>
+<div class="curso investigacion">Trabajo de Investigación</div>
 </div>
 
 </div>
 
 <footer>
-<p>Malla Curricular Oficial – Carrera de Enfermería (UPSJB)</p>
+<p>Malla Curricular Oficial – Enfermería UPSJB</p>
 </footer>
 
 </body>
