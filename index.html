@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Malla Curricular - Enfermería</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f7f6;
+      text-align: center;
+    }
+    h1 {
+      color: #2b7a78;
+    }
+    .malla {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+    .ciclo {
+      background: #3bbfad;
+      color: white;
+      padding: 20px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .ciclo:hover {
+      background: #2b9c8a;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Malla Curricular – Enfermería</h1>
+
+<div class="malla">
+  <div class="ciclo" onclick="alert('Ciclo 01')">Ciclo 01</div>
+  <div class="ciclo" onclick="alert('Ciclo 02')">Ciclo 02</div>
+  <div class="ciclo" onclick="alert('Ciclo 03')">Ciclo 03</div>
+  <div class="ciclo" onclick="alert('Ciclo 04')">Ciclo 04</div>
+  <div class="ciclo" onclick="alert('Ciclo 05')">Ciclo 05</div>
+  <div class="ciclo" onclick="alert('Ciclo 06')">Ciclo 06</div>
+  <div class="ciclo" onclick="alert('Ciclo 07')">Ciclo 07</div>
+  <div class="ciclo" onclick="alert('Ciclo 08')">Ciclo 08</div>
+  <div class="ciclo" onclick="alert('Ciclo 09')">Ciclo 09</div>
+  <div class="ciclo" onclick="alert('Ciclo 10')">Ciclo 10</div>
+</div>
+
+</body>
+</html>
