@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Malla Curricular – Enfermería UPSJB</title>
+<title>Malla Curricular – Enfermería</title>
 
 <style>
 body{
@@ -20,11 +20,10 @@ h1{
   text-align:center;
 }
 
-/* PROGRESO GENERAL */
 .progreso-box{
   background:white;
   width:90%;
-  max-width:400px;
+  max-width:420px;
   margin:16px auto;
   padding:12px;
   border-radius:14px;
@@ -54,18 +53,11 @@ h1{
   color:#7b5fc6;
 }
 
-/* CICLOS */
 .ciclo{
   background:white;
   margin:12px;
   border-radius:16px;
   overflow:hidden;
-  opacity:0.35;
-  transition:0.3s;
-}
-
-.ciclo.activo{
-  opacity:1;
 }
 
 .ciclo-header{
@@ -81,7 +73,6 @@ h1{
   padding:12px;
 }
 
-/* CURSOS */
 .curso{
   padding:10px;
   margin:6px 0;
@@ -96,7 +87,6 @@ h1{
 .investigacion{ background:#cfc1eb; }
 .internado{ background:#f2edf9; }
 
-/* APROBADO + POP */
 .aprobado{
   opacity:0.6;
   text-decoration:line-through;
@@ -110,7 +100,6 @@ h1{
   100%{transform:scale(1);}
 }
 
-/* MODAL */
 #modal{
   display:none;
   position:fixed;
@@ -119,7 +108,6 @@ h1{
   background:rgba(0,0,0,0.4);
   justify-content:center;
   align-items:center;
-  z-index:999;
 }
 
 #modalContent{
@@ -133,10 +121,9 @@ h1{
 </style>
 
 <script>
-function toggleCiclo(header){
-  if(!header.parentElement.classList.contains("activo")) return;
-  const cursos = header.nextElementSibling;
-  cursos.style.display = cursos.style.display === "block" ? "none" : "block";
+function toggleCiclo(h){
+  const c=h.nextElementSibling;
+  c.style.display=c.style.display==="block"?"none":"block";
 }
 
 function aprobar(el){
@@ -146,21 +133,19 @@ function aprobar(el){
 }
 
 function mostrarDetalle(el){
-  const estado = el.classList.contains("aprobado") ? "Aprobado" : "Pendiente";
-  document.getElementById("modalTitulo").innerText = el.dataset.nombre;
-  document.getElementById("modalInfo").innerHTML =
-    "Créditos: " + el.dataset.creditos + "<br>" +
-    "Tipo: " + el.dataset.tipo + "<br>" +
-    "Estado: " + estado;
-  document.getElementById("modal").style.display="flex";
+  const estado=el.classList.contains("aprobado")?"Aprobado":"Pendiente";
+  modalTitulo.innerText=el.dataset.nombre;
+  modalInfo.innerHTML=
+    "Créditos: "+el.dataset.creditos+"<br>"+
+    "Tipo: "+el.dataset.tipo+"<br>"+
+    "Estado: "+estado;
+  modal.style.display="flex";
 }
 
-function cerrarModal(){
-  document.getElementById("modal").style.display="none";
-}
+function cerrarModal(){ modal.style.display="none"; }
 
 function guardar(){
-  let estado=[];
+  const estado=[];
   document.querySelectorAll(".curso").forEach(c=>{
     estado.push(c.classList.contains("aprobado"));
   });
@@ -168,7 +153,7 @@ function guardar(){
 }
 
 function cargar(){
-  let estado=JSON.parse(localStorage.getItem("estadoCursos"));
+  const estado=JSON.parse(localStorage.getItem("estadoCursos"));
   if(!estado) return;
   document.querySelectorAll(".curso").forEach((c,i)=>{
     if(estado[i]) c.classList.add("aprobado");
@@ -176,75 +161,99 @@ function cargar(){
 }
 
 function actualizar(){
-  let cursos=document.querySelectorAll(".curso");
-  let total=cursos.length;
+  const cursos=document.querySelectorAll(".curso");
   let aprobados=0;
-
-  cursos.forEach(c=>{
-    if(c.classList.contains("aprobado")) aprobados++;
-  });
-
-  let porcentaje=Math.round((aprobados/total)*100);
-  document.querySelector(".barra span").style.width=porcentaje+"%";
-  document.getElementById("textoProgreso").innerText =
-    "Avance académico: " + porcentaje + "% (" + aprobados + " de " + total + ")";
-
-  // Desbloqueo por ciclos
-  const ciclos=document.querySelectorAll(".ciclo");
-  ciclos.forEach((ciclo,i)=>{
-    if(i===0){
-      ciclo.classList.add("activo");
-    }else{
-      const anterior=ciclos[i-1];
-      if(anterior.querySelectorAll(".curso:not(.aprobado)").length===0){
-        ciclo.classList.add("activo");
-      }
-    }
-  });
+  cursos.forEach(c=>{ if(c.classList.contains("aprobado")) aprobados++; });
+  const p=Math.round((aprobados/cursos.length)*100);
+  document.querySelector(".barra span").style.width=p+"%";
+  textoProgreso.innerText="Avance académico: "+p+"% ("+aprobados+" de "+cursos.length+")";
 }
 
-window.onload=()=>{
-  cargar();
-  actualizar();
-};
+window.onload=()=>{ cargar(); actualizar(); };
 </script>
 </head>
 
 <body>
 
-<h1>Malla Curricular – Enfermería UPSJB</h1>
+<h1>Malla Curricular – Enfermería</h1>
 
 <div class="progreso-box">
   <div class="barra"><span></span></div>
   <div id="textoProgreso"></div>
 </div>
 
-<!-- CICLOS 1 AL 10 -->
-
 <!-- CICLO I -->
-<div class="ciclo activo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo I</div><div class="cursos">
-<div class="curso basico" data-nombre="Fundamentos Biológicos I" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Fundamentos Biológicos I (3 cr)</div>
-<div class="curso basico" data-nombre="Bases de la Psicología Humana" data-creditos="2" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Bases de la Psicología Humana (2 cr)</div>
-<div class="curso enfermeria" data-nombre="Historia y Epistemología del Cuidado" data-creditos="3" data-tipo="Enfermería" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Historia y Epistemología del Cuidado (3 cr)</div>
-<div class="curso basico" data-nombre="Vida Universitaria" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Vida Universitaria y Gestión del Conocimiento (3 cr)</div>
-<div class="curso basico" data-nombre="Lógico Matemática" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Lógico-Matemática (3 cr)</div>
-<div class="curso basico" data-nombre="Redacción de Textos" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Redacción e Interpretación de Textos (3 cr)</div>
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo I</div><div class="cursos">
+<div class="curso basico" data-nombre="Fundamentos Biológicos I" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Fundamentos Biológicos I</div>
+<div class="curso basico" data-nombre="Psicología General" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Psicología General</div>
+<div class="curso enfermeria" data-nombre="Introducción a Enfermería" data-creditos="3" data-tipo="Enfermería" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Introducción a Enfermería</div>
+<div class="curso basico" data-nombre="Comunicación Académica" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Comunicación Académica</div>
+<div class="curso basico" data-nombre="Matemática Básica" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Matemática Básica</div>
 </div></div>
 
 <!-- CICLO II -->
 <div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo II</div><div class="cursos">
-<div class="curso basico" data-nombre="Estructura y Función I" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Estructura y Función I (3 cr)</div>
-<div class="curso basico" data-nombre="Fundamentos Biológicos II" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Fundamentos Biológicos II (3 cr)</div>
-<div class="curso basico" data-nombre="Inglés I" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Inglés I (3 cr)</div>
-<div class="curso basico" data-nombre="Filosofía" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Filosofía (3 cr)</div>
-<div class="curso basico" data-nombre="Realidad Nacional" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Realidad Nacional (3 cr)</div>
-<div class="curso basico" data-nombre="Comunicación Digital" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Comunicación y Medios Digitales (3 cr)</div>
+<div class="curso basico" data-nombre="Anatomía Humana" data-creditos="4" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Anatomía Humana</div>
+<div class="curso basico" data-nombre="Fundamentos Biológicos II" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Fundamentos Biológicos II</div>
+<div class="curso basico" data-nombre="Sociología" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Sociología</div>
+<div class="curso enfermeria" data-nombre="Bioética" data-creditos="3" data-tipo="Enfermería" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Bioética</div>
+<div class="curso basico" data-nombre="Inglés I" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Inglés I</div>
 </div></div>
 
-<!-- CICLOS III al X -->
-<!-- (Siguen completos y coherentes, mismo patrón) -->
+<!-- CICLO III -->
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo III</div><div class="cursos">
+<div class="curso basico" data-nombre="Fisiología Humana" data-creditos="4" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Fisiología Humana</div>
+<div class="curso enfermeria" data-nombre="Proceso de Atención de Enfermería I" data-creditos="4" data-tipo="Enfermería" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Proceso de Atención de Enfermería I</div>
+<div class="curso basico" data-nombre="Microbiología" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Microbiología</div>
+<div class="curso basico" data-nombre="Estadística Básica" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Estadística Básica</div>
+</div></div>
 
-<!-- MODAL -->
+<!-- CICLO IV -->
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo IV</div><div class="cursos">
+<div class="curso enfermeria" data-nombre="Enfermería Básica" data-creditos="4" data-tipo="Enfermería" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Enfermería Básica</div>
+<div class="curso basico" data-nombre="Farmacología I" data-creditos="4" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Farmacología I</div>
+<div class="curso basico" data-nombre="Nutrición" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Nutrición</div>
+<div class="curso basico" data-nombre="Inglés II" data-creditos="3" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Inglés II</div>
+</div></div>
+
+<!-- CICLO V -->
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo V</div><div class="cursos">
+<div class="curso clinico" data-nombre="Enfermería Médico Quirúrgica I" data-creditos="5" data-tipo="Clínico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Enfermería Médico Quirúrgica I</div>
+<div class="curso clinico" data-nombre="Enfermería Materno Infantil I" data-creditos="4" data-tipo="Clínico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Enfermería Materno Infantil I</div>
+<div class="curso basico" data-nombre="Farmacología II" data-creditos="4" data-tipo="Básico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Farmacología II</div>
+</div></div>
+
+<!-- CICLO VI -->
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo VI</div><div class="cursos">
+<div class="curso clinico" data-nombre="Enfermería Médico Quirúrgica II" data-creditos="5" data-tipo="Clínico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Enfermería Médico Quirúrgica II</div>
+<div class="curso clinico" data-nombre="Enfermería Materno Infantil II" data-creditos="4" data-tipo="Clínico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Enfermería Materno Infantil II</div>
+<div class="curso investigacion" data-nombre="Metodología de la Investigación" data-creditos="3" data-tipo="Investigación" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Metodología de la Investigación</div>
+</div></div>
+
+<!-- CICLO VII -->
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo VII</div><div class="cursos">
+<div class="curso clinico" data-nombre="Enfermería en Salud Mental" data-creditos="4" data-tipo="Clínico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Enfermería en Salud Mental</div>
+<div class="curso clinico" data-nombre="Enfermería Comunitaria I" data-creditos="4" data-tipo="Clínico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Enfermería Comunitaria I</div>
+<div class="curso investigacion" data-nombre="Proyecto de Investigación" data-creditos="3" data-tipo="Investigación" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Proyecto de Investigación</div>
+</div></div>
+
+<!-- CICLO VIII -->
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo VIII</div><div class="cursos">
+<div class="curso clinico" data-nombre="Enfermería Comunitaria II" data-creditos="4" data-tipo="Clínico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Enfermería Comunitaria II</div>
+<div class="curso clinico" data-nombre="Enfermería del Adulto Mayor" data-creditos="4" data-tipo="Clínico" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Enfermería del Adulto Mayor</div>
+<div class="curso investigacion" data-nombre="Seminario de Tesis" data-creditos="3" data-tipo="Investigación" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Seminario de Tesis</div>
+</div></div>
+
+<!-- CICLO IX -->
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo IX</div><div class="cursos">
+<div class="curso internado" data-nombre="Internado I" data-creditos="10" data-tipo="Internado" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Internado I</div>
+</div></div>
+
+<!-- CICLO X -->
+<div class="ciclo"><div class="ciclo-header" onclick="toggleCiclo(this)">Ciclo X</div><div class="cursos">
+<div class="curso internado" data-nombre="Internado II" data-creditos="10" data-tipo="Internado" onclick="aprobar(this)" ondblclick="mostrarDetalle(this)">Internado II</div>
+</div></div>
+
 <div id="modal" onclick="cerrarModal()">
   <div id="modalContent" onclick="event.stopPropagation()">
     <h3 id="modalTitulo"></h3>
