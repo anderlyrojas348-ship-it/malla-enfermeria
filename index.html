@@ -7,18 +7,18 @@
 
 <style>
 body{
-  font-family: Arial, sans-serif;
+  font-family: system-ui, Arial, sans-serif;
   background:#f4f1fb;
   margin:0;
 }
 
 header{
-  background:#7b5fc6;
+  background:#6b4fc3;
   color:white;
   text-align:center;
   padding:16px;
   font-size:20px;
-  font-weight:bold;
+  font-weight:600;
 }
 
 .container{
@@ -42,22 +42,22 @@ header{
 .progress-fill{
   height:100%;
   width:0%;
-  background:#7b5fc6;
-  transition:0.3s;
+  background:#6b4fc3;
+  transition:.3s;
 }
 
-.progress-text{
-  margin-top:8px;
+.progress-text, .creditos-text{
   text-align:center;
   font-size:14px;
+  margin-top:6px;
 }
 
 .ciclo{
-  background:#d6c9f0;
-  padding:10px;
+  background:#d8cef2;
+  padding:10px 14px;
   border-radius:14px;
   margin-top:20px;
-  font-weight:bold;
+  font-weight:600;
 }
 
 .curso{
@@ -66,11 +66,6 @@ header{
   border-radius:12px;
   margin-top:8px;
   cursor:pointer;
-  transition:0.2s;
-}
-
-.curso:hover{
-  background:#f0ebfb;
 }
 
 .curso span{
@@ -79,47 +74,16 @@ header{
 }
 
 .curso.aprobado{
-  opacity:0.6;
+  opacity:.6;
   text-decoration:line-through;
-  border:2px solid #7b5fc6;
-  animation:pop 0.25s;
+  border:2px solid #6b4fc3;
+  animation:pop .25s ease;
 }
 
 @keyframes pop{
   0%{transform:scale(1)}
   50%{transform:scale(1.08)}
   100%{transform:scale(1)}
-}
-
-/* MODAL */
-#modal{
-  display:none;
-  position:fixed;
-  inset:0;
-  background:rgba(0,0,0,0.45);
-  justify-content:center;
-  align-items:center;
-}
-
-#modalContent{
-  background:white;
-  padding:20px;
-  border-radius:14px;
-  width:90%;
-  max-width:320px;
-}
-
-#modalContent h3{
-  margin-top:0;
-}
-
-button{
-  background:#7b5fc6;
-  color:white;
-  border:none;
-  padding:8px 14px;
-  border-radius:8px;
-  cursor:pointer;
 }
 </style>
 </head>
@@ -131,129 +95,140 @@ button{
 <div class="container">
 
 <div class="progress-box">
-  <div class="progress-bar"><div class="progress-fill"></div></div>
+  <div class="progress-bar">
+    <div class="progress-fill"></div>
+  </div>
   <div class="progress-text" id="progressText"></div>
+  <div class="creditos-text" id="creditosText"></div>
 </div>
-
-<!-- CICLOS -->
 
 <script>
 const data = [
 {ciclo:"CICLO 01", cursos:[
-["Historia y Filosofía del Cuidado",3],
-["Anatomía",6],
-["Bases de la Bioquímica Humana",2],
-["Fundamentos de Enfermería",3],
-["Vida Universitaria y Desarrollo Personal",2],
+["Historia y Epistemología del Cuidado",3],
+["Bases de la Psicología Humana",2],
+["Fundamentos Biológicos I",3],
+["Vida Universitaria y Gestión del Conocimiento",3],
 ["Lógico-Matemática",3],
-["Comunicación e Interpretación de Textos",3]
+["Redacción e Interpretación de Textos",3]
 ]},
 {ciclo:"CICLO 02", cursos:[
 ["Estructura y Función I",3],
-["Fisiología",3],
-["Microbiología y Parasitología",3],
-["Psicología",3],
+["Fundamentos Biológicos II",3],
+["Inglés I",3],
+["Filosofía",3],
 ["Realidad Nacional",3],
-["Medios Digitales",3]
+["Comunicación y Medios Digitales",3]
 ]},
 {ciclo:"CICLO 03", cursos:[
-["Bioestadística",3],
-["Cuidado Humano del Cuidado Enfermero I",3],
+["Fundamentos Básicos del Cuidado Enfermero I",3],
 ["Nutrición y Dietoterapia",3],
 ["Estructura y Función II",3],
 ["Bioquímica",2],
+["Inglés II",2],
 ["Interculturalidad",3],
-["Pensamiento Crítico, Creativo y Emprendimiento",2]
+["Pensamiento Crítico, Creativo y Emprendimiento",3]
 ]},
 {ciclo:"CICLO 04", cursos:[
-["Farmacología",3],
-["Patología",3],
-["Salud Pública",3],
-["Cuidado Humano del Cuidado Enfermero II",10],
-["Investigación",3],
-["Electivo I",2],
-["Aprobado / No aprobado",0]
+["Epidemiología",2],
+["Integrador Fundamentos Básicos del Cuidado Enfermero II",6],
+["Salud Familiar y Comunitaria",3],
+["Sistematización y Métodos Estadísticos",2],
+["Enfermería Legal y Legislación en Salud",2],
+["Ciudadanía Global y Desarrollo Sostenible",3]
 ]},
 {ciclo:"CICLO 05", cursos:[
-["Cuidado Integral de la Mujer y el Recién Nacido",10],
-["Cuidado Integral de la Niñez y Adolescencia",10],
-["Epidemiología",2],
-["Electivo II",2]
+["Farmacología Aplicada a la Enfermería",3],
+["Cuidado Enfermero I",8],
+["Simulación I (Reanimación Cardiopulmonar Básico)",2],
+["Tecnologías del Empoderamiento Participativo en la Educación en Salud",4],
+["Metodología de la Investigación",3]
 ]},
 {ciclo:"CICLO 06", cursos:[
-["Cuidado Enfermero II (Procedimientos Invasivos)",10],
-["Recursos para la Búsqueda de Evidencia",2],
-["Redacción y Publicación de Artículos I",2]
+["Cuidado Enfermero II",10],
+["Simulación II (Procedimientos Invasivos Básicos)",2],
+["Recursos para la Alfabetización en Salud",3],
+["Redacción y Publicación de Artículo I",2]
 ]},
 {ciclo:"CICLO 07", cursos:[
-["Cuidado Enfermero III (Cuidados Intensivos Avanzados)",10],
-["Ética y Deontología",2],
-["Gestión y Emprendimiento",4],
-["Redacción y Publicación de Artículos II",2]
+["Cuidado Enfermero III",10],
+["Simulación III (Procedimientos Invasivos Avanzados)",2],
+["Gestión Estratégica y Emprendimiento",4],
+["Redacción y Publicación de Artículo II",2]
 ]},
 {ciclo:"CICLO 08", cursos:[
-["Bioética",2],
-["Gestión de los Servicios de Enfermería",10],
-["Emergencias y Desastres en Enfermería",2],
+["Gestión de los Servicios de Enfermería",4],
+["Cuidado Enfermero IV",10],
+["Emergencias y Urgencias en Enfermería",2],
 ["Seminario Integrador",2],
-["Profesionalismo",3]
+["Ética y Profesionalismo",3]
 ]},
 {ciclo:"CICLO 09", cursos:[
-["Taller Guía de Práctica Clínica en Crisis",2],
+["Taller Guía de Proyecto de Tesis",2],
 ["Primera Rotación de Internado Comunitario I",10],
 ["Segunda Rotación de Internado Comunitario I",10]
 ]},
 {ciclo:"CICLO 10", cursos:[
 ["Trabajo de Investigación",2],
 ["Tercera Rotación de Internado Clínico I",10],
-["Internado Clínico II",10]
+["Cuarta Rotación de Internado Clínico II",10]
 ]},
-{ciclo:"CICLO 99", cursos:[
-["Taller de Desarrollo de la Inteligencia Emocional",2],
-["Primeros Auxilios y Rescatistas",2],
+{ciclo:"CICLO 99 – ELECTIVOS", cursos:[
+["Taller de Desarrollo Personal e Inteligencia Emocional",2],
+["Herramientas y Gestores Bibliográficos",2],
 ["Neurociencia del Dolor",2],
-["One Health",2],
-["Manejo Integral en Situaciones de Epidemia",2],
-["Salud Basada en Evidencias",2],
-["Grand Round General",0],
-["Terapéutica Integral Complementaria",2],
-["Psicología del Suicidio",2],
-["Psicología y Tratamiento de las Adicciones",2]
+["One Health: Abordaje del Interfaz Humano-Animal-Ecosistema",2],
+["Manejo Integral en Pandemias y Epidemias",2],
+["Gestión de la Innovación y Patentes",2],
+["Clinical Grand Round",2],
+["Terapéutica Integral e Integrada",2],
+["Psicología del Deporte",2],
+["Psicología y Afrontamiento de las Adicciones",2]
 ]}
 ];
 
-let container=document.querySelector(".container");
-let estado=JSON.parse(localStorage.getItem("estado"))||[];
+let estado = JSON.parse(localStorage.getItem("estadoCursos")) || [];
+let totalCreditos = 0;
+const cont = document.querySelector(".container");
 
-data.forEach((c,i)=>{
-  let cDiv=document.createElement("div");
-  cDiv.innerHTML=`<div class="ciclo">${c.ciclo}</div>`;
-  c.cursos.forEach((cur,j)=>{
-    let id=`${i}-${j}`;
-    let div=document.createElement("div");
-    div.className="curso";
-    if(estado.includes(id)) div.classList.add("aprobado");
-    div.innerHTML=`${cur[0]}<br><span>${cur[1]} créditos</span>`;
-    div.onclick=()=>{
-      div.classList.toggle("aprobado");
-      if(div.classList.contains("aprobado")) estado.push(id);
+data.forEach((ciclo,i)=>{
+  const h=document.createElement("div");
+  h.className="ciclo";
+  h.textContent=ciclo.ciclo;
+  cont.appendChild(h);
+
+  ciclo.cursos.forEach((cur,j)=>{
+    totalCreditos+=cur[1];
+    const id=`${i}-${j}`;
+    const d=document.createElement("div");
+    d.className="curso";
+    if(estado.includes(id)) d.classList.add("aprobado");
+    d.innerHTML=`${cur[0]}<br><span>${cur[1]} créditos</span>`;
+    d.onclick=()=>{
+      d.classList.toggle("aprobado");
+      if(d.classList.contains("aprobado")) estado.push(id);
       else estado=estado.filter(x=>x!==id);
-      localStorage.setItem("estado",JSON.stringify(estado));
+      localStorage.setItem("estadoCursos",JSON.stringify(estado));
       actualizar();
     };
-    cDiv.appendChild(div);
+    cont.appendChild(d);
   });
-  container.appendChild(cDiv);
 });
 
 function actualizar(){
-  let total=document.querySelectorAll(".curso").length;
-  let aprob=document.querySelectorAll(".curso.aprobado").length;
-  let pct=Math.round((aprob/total)*100);
+  let aprobCreditos=0;
+  document.querySelectorAll(".curso").forEach(c=>{
+    if(c.classList.contains("aprobado")){
+      aprobCreditos+=parseInt(c.querySelector("span").innerText);
+    }
+  });
+  let pct=Math.round((aprobCreditos/totalCreditos)*100);
   document.querySelector(".progress-fill").style.width=pct+"%";
-  document.getElementById("progressText").innerText=
-    `Avance académico: ${pct}% (${aprob} de ${total})`;
+  document.getElementById("progressText").innerText=`Avance académico: ${pct}%`;
+  document.getElementById("creditosText").innerText=
+    `Créditos aprobados: ${aprobCreditos} / ${totalCreditos}`;
 }
+
 actualizar();
 </script>
 
