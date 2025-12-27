@@ -21,9 +21,7 @@ header{
   font-weight:600;
 }
 
-.container{
-  padding:14px;
-}
+.container{ padding:14px; }
 
 .progress-box{
   background:white;
@@ -34,7 +32,7 @@ header{
 
 .progress-bar{
   height:12px;
-  background:#ddd;
+  background:#e6e1f3;
   border-radius:8px;
   overflow:hidden;
 }
@@ -46,20 +44,44 @@ header{
   transition:.3s;
 }
 
-.progress-text, .creditos-text{
+.progress-text,.creditos-text{
   text-align:center;
   font-size:14px;
   margin-top:6px;
 }
 
+/* CICLOS */
 .ciclo{
   background:#d8cef2;
-  padding:10px 14px;
+  padding:12px 14px;
   border-radius:14px;
   margin-top:20px;
   font-weight:600;
 }
 
+.ciclo small{
+  display:block;
+  font-weight:400;
+  font-size:13px;
+  margin-top:4px;
+}
+
+/* BARRA POR CICLO */
+.ciclo-barra{
+  height:8px;
+  background:#ede7f6;
+  border-radius:6px;
+  overflow:hidden;
+  margin-top:6px;
+}
+
+.ciclo-fill{
+  height:100%;
+  width:0%;
+  transition:.3s;
+}
+
+/* CURSOS */
 .curso{
   background:white;
   padding:12px;
@@ -95,9 +117,7 @@ header{
 <div class="container">
 
 <div class="progress-box">
-  <div class="progress-bar">
-    <div class="progress-fill"></div>
-  </div>
+  <div class="progress-bar"><div class="progress-fill"></div></div>
   <div class="progress-text" id="progressText"></div>
   <div class="creditos-text" id="creditosText"></div>
 </div>
@@ -192,17 +212,26 @@ let totalCreditos = 0;
 const cont = document.querySelector(".container");
 
 data.forEach((ciclo,i)=>{
+  const totalCiclo = ciclo.cursos.reduce((s,c)=>s+c[1],0);
+  totalCreditos += totalCiclo;
+
   const h=document.createElement("div");
   h.className="ciclo";
-  h.textContent=ciclo.ciclo;
+  h.innerHTML=`
+    ${ciclo.ciclo}
+    <small id="info-${i}">Créditos: 0 / ${totalCiclo}</small>
+    <div class="ciclo-barra">
+      <div class="ciclo-fill" id="barra-${i}"></div>
+    </div>`;
   cont.appendChild(h);
 
   ciclo.cursos.forEach((cur,j)=>{
-    totalCreditos+=cur[1];
     const id=`${i}-${j}`;
     const d=document.createElement("div");
     d.className="curso";
     if(estado.includes(id)) d.classList.add("aprobado");
+    d.dataset.creditos=cur[1];
+    d.dataset.ciclo=i;
     d.innerHTML=`${cur[0]}<br><span>${cur[1]} créditos</span>`;
     d.onclick=()=>{
       d.classList.toggle("aprobado");
@@ -215,18 +244,39 @@ data.forEach((ciclo,i)=>{
   });
 });
 
+function colorLila(p){
+  if(p>=100) return "#6b4fc3";
+  if(p>=60) return "#9b86d9";
+  if(p>=30) return "#c1b3ea";
+  return "#e0d9f5";
+}
+
 function actualizar(){
-  let aprobCreditos=0;
-  document.querySelectorAll(".curso").forEach(c=>{
-    if(c.classList.contains("aprobado")){
-      aprobCreditos+=parseInt(c.querySelector("span").innerText);
-    }
+  let aprobTotal=0;
+
+  data.forEach((c,i)=>{
+    let aprobCiclo=0;
+    document.querySelectorAll(`.curso[data-ciclo="${i}"].aprobado`)
+      .forEach(x=>aprobCiclo+=parseInt(x.dataset.creditos));
+
+    const totalCiclo=c.cursos.reduce((s,v)=>s+v[1],0);
+    const pct=Math.round((aprobCiclo/totalCiclo)*100);
+
+    document.getElementById(`info-${i}`).innerText=
+      `Créditos: ${aprobCiclo} / ${totalCiclo}`;
+
+    const barra=document.getElementById(`barra-${i}`);
+    barra.style.width=pct+"%";
+    barra.style.background=colorLila(pct);
+
+    aprobTotal+=aprobCiclo;
   });
-  let pct=Math.round((aprobCreditos/totalCreditos)*100);
-  document.querySelector(".progress-fill").style.width=pct+"%";
-  document.getElementById("progressText").innerText=`Avance académico: ${pct}%`;
+
+  const pctTotal=Math.round((aprobTotal/totalCreditos)*100);
+  document.querySelector(".progress-fill").style.width=pctTotal+"%";
+  document.getElementById("progressText").innerText=`Avance académico: ${pctTotal}%`;
   document.getElementById("creditosText").innerText=
-    `Créditos aprobados: ${aprobCreditos} / ${totalCreditos}`;
+    `Créditos aprobados: ${aprobTotal} / ${totalCreditos}`;
 }
 
 actualizar();
